@@ -110,7 +110,7 @@ public class MainS {
                 System.out.println("已退出");
                 logger.info("用户控制：关闭程序");
                 logger.info("已退出");
-                Default.end = true;
+                System.exit(1);
                 return true;
             }
             @SuppressWarnings("removal") Integer in = new Integer(ST1);

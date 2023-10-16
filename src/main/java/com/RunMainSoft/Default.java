@@ -5,7 +5,6 @@ import org.apache.logging.log4j.Logger;
 import com.versiontext.Operator;
 
 class Default {
-    public static boolean end;
 
     public static void main(String[] args) {
 
@@ -17,12 +16,8 @@ class Default {
             runfast = Boolean.parseBoolean(args[0]);
             if (runfast) {
                 while (true) {
-                    boolean ad = d();
-                    if (!ad) {
-                        break;
-                    } else if (MainS.isGoing) {
-                        break;
-                    } else if (end) {
+                    d();
+                    if (MainS.isGoing) {
                         break;
                     }
 
@@ -36,7 +31,7 @@ class Default {
         }
     }
 
-    public static boolean d() {
+    public static void d() {
         boolean dd = false;
         Logger logger = LogManager.getLogger(Default.class);
         String SP1;
@@ -46,10 +41,10 @@ class Default {
 //        logger.info("输入$Exit退出");
         if (MainS.GotoMath) {
             dd = MainS.Maths_C();
-            return true;
+            return;
         } else if (MainS.GotoFileWatch) {
             dd = MainS.fileRund();
-            return true;
+            return;
         }
         System.err.println("请输入你要运行的软件(1.数学工具;2.文件管理;3.猜数字（游戏）)");
         logger.info("软件：1.数学工具;2.文件管理;3.猜数字");
@@ -62,7 +57,7 @@ class Default {
             logger.info("用户控制：关闭程序");
             System.out.println("已退出");
             logger.info("已退出");
-            return false;
+            System.exit(1);
         } else if (SP1.equals("version")) {
             logger.info("用户控制：读取版本号");
             Operator op = new Operator();
@@ -76,7 +71,6 @@ class Default {
             } catch (InterruptedException e) {
                 MainS.centel(e, true);
             }
-            return true;
         } else {
             try {
                 MainS.isGoing = false;
@@ -84,7 +78,7 @@ class Default {
                 SP = SP2.intValue();
             } catch (Exception e) {
                 MainS.centel(e, true);
-                return true;
+                System.exit(2);
             }
 
             //switch表达式
@@ -99,8 +93,7 @@ class Default {
         }
         if (!dd) {
             logger.error("运行中触发异常，请与开发者联系！");
-            return false;
+            System.exit(2);
         }
-        return true;
     }
 }
