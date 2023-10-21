@@ -2,6 +2,7 @@ package com.RunMainSoft;
 
 import java.text.MessageFormat;
 
+import com.OpenSoftware.Start;
 import com.usetwoyinshu_api.ExampleClass;
 import com.usetwoyinshu_api.OnlyOneNumberException;
 import com.usetwoyinshu_api.ZeroNumberException;
@@ -92,12 +93,17 @@ public class MainS {
         int SP = 0;
         try {
             logger.info("用户控制：运行-文件管理");
-            System.err.println("请继续输入;1.读取文件内容;2.写入文件内容;3.查看文件属性 =-=输入back返回=-=");
-            logger.info("软件：1.读取文件内容;2.写入文件内容;3.查看文件属性");
+            System.err.println("请继续输入;1.读取文件内容;2.写入文件内容;3.查看文件属性;4.软件快速开 =-=输入back返回=-=");
+            logger.info("软件：1.读取文件内容;2.写入文件内容;3.查看文件属性;4.软件快速开");
             GotoMath = false;
             GotoFileWatch = true;
             String ST1 = scan.str();
             logger.info("用户输入：" + ST1);
+            if (ST1.trim().equals("4")) {
+                Start st = new Start();
+                st.RunSoftware();
+                return true;
+            }
             ST1 = ST1.toLowerCase();
             if (ST1.equals("back")) {
                 GotoFileWatch = false;
@@ -159,7 +165,7 @@ public class MainS {
 
     public static void error() {
         try {
-            throw new CannotFindException(1,"It's not right list!");
+            throw new CannotFindException(1, "It's not right list!");
         } catch (Exception e) {
             centel(e, true);
         }
