@@ -8,7 +8,7 @@ import java.io.*;
 public class Reader {
     File f = null;
     static Logger logger = LogManager.getLogger(Reader.class);
-    static final File Cache = new File("cache/RunSoftPath.json");
+    static final File Cache = new File("data/RunSoftPath.json");
 
     public void CleanData() {
         try {
@@ -30,8 +30,8 @@ public class Reader {
     public Reader(File f) {
         this.f = f;
 
-        if (!new File("cache").exists()) {
-            new File("cache").mkdir();
+        if (!new File("data").exists()) {
+            new File("data").mkdir();
         }
         if (!Cache.exists()) {
             try {
