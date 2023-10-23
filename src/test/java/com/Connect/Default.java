@@ -89,7 +89,8 @@ class Default {
             logger.info("用户控制：关闭程序");
             System.out.println("已退出");
             logger.info("已退出");
-            System.exit(1);
+            System.exit(0);
+//            System.exit(1);
         } else if (SP1.equals("version")) {
             logger.info("用户控制：读取版本号");
             Operator op = new Operator();
