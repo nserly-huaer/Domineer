@@ -31,6 +31,9 @@ jobs:
       run: mvn -B package --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+                  - name: SecureStack Log4j Vulnerability Analysis
+                uses: SecureStackCo/actions-log4j@v0.1.4
+            
                  - name: Maven Dependency Tree Dependency Submission
                 uses: advanced-security/maven-dependency-submission-action@v3.0.3
             
