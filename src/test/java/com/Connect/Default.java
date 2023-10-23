@@ -65,7 +65,7 @@ class Default {
     }
 
     public static void d() {
-        boolean dd = false;
+        boolean dd = true;
         String SP1;
         System.err.println("-----------软件七合一(软件所有权归nserly所有，未经允许，禁止复制、摘用!)-----------");
         logger.info("-----------软件七合一(软件所有权：nserly;未经允许，禁止复制!)-----------");
@@ -85,6 +85,7 @@ class Default {
         Integer SP2 = null;
         SP1 = SP1.toLowerCase();
         logger.info("用户输入：" + SP1);
+
         if (SP1.equals("$exit")) {
             logger.info("用户控制：关闭程序");
             System.out.println("已退出");
@@ -96,6 +97,7 @@ class Default {
             Operator op = new Operator();
             String[] version = op.version();
 //            System.out.println(version);
+
             for (String s : version) {
                 System.out.println(s);
             }
