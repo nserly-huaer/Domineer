@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --src/main/java/com/RunMainSoft.java pom.xml
+      run: mvn clean package -B
 
     - name: SecureStack Log4j Vulnerability Analysis
       uses: SecureStackCo/actions-log4j@v0.1.4
