@@ -66,7 +66,7 @@ public class Read {
             System.out.println("请输入文件内容");
             logger.info("请输入文件内容：");
             jea = scan.str();
-            System.out.println("用户输入:" + jea);
+            logger.info("用户输入:" + jea);
             long begintime1 = System.currentTimeMillis();
             logger.info("开始时间" + begintime1);
             if (!r.write(filepath, jea, begintime1, isRemWrite, isnextY)) {
@@ -88,7 +88,7 @@ public class Read {
         } else {
             System.err.println("\n仅限个人使用，请勿用于商业用途！！！！\n版本所有权、解释权:nserly(恩瑟莉)");
             logger.info("仅限个人使用，请勿用于商业用途！！！！版本所有权、解释权:nserly(恩瑟莉)");
-            throw new CannotFindException(0,"It's not right list!");
+            throw new CannotFindException(0, "It's not right list!");
         }
 
     }

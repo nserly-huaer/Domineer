@@ -20,6 +20,7 @@ public class Here {//如果退出代码小于2则为正常退出，否则为异�
         try {
             // 创建客户端套接字，连接服务器
             Socket socket = new Socket(IP, port);
+            logger.info("连接服务器成功！");
 
             // 创建读取线程
             Thread readThread = new Thread(new ReadThread(socket));
@@ -50,20 +51,23 @@ public class Here {//如果退出代码小于2则为正常退出，否则为异�
             WriteLog(result);
         } else if (message.startsWith("messageSender")) {
             String[] info = message.split(" ", 2);
+            logger.info(info[1]);
             System.out.println(info[1]);
         } else if (message.startsWith("information")) {
-
             String[] info = message.split(" ", 2);
+            logger.info("服务器管理员发送：" + info[1]);
             System.out.println("服务器管理员发送：" + info[1]);
-
         } else if (message.startsWith("delay")) {
             String[] de = message.split(" ", 2);
             long del = Long.parseLong(de[1]);
             long time = System.currentTimeMillis();
-            if (div2)
+            if (div2) {
+                logger.info("服务器与客户端之间的延迟为：" + ((time - del) / 2) + "ms");
                 System.out.println("服务器与客户端之间的延迟为：" + ((time - del) / 2) + "ms");
-            else
+            } else {
+                logger.info("服务器与客户端之间的延迟为：" + (time - del) + "ms");
                 System.out.println("服务器与客户端之间的延迟为：" + (time - del) + "ms");
+            }
             try {
                 String time1 = "reDelay " + String.valueOf(time - del);
                 if (!div2)
