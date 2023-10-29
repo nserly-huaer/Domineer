@@ -31,12 +31,23 @@ public class MathsC {
         }
         int index = Integer.parseInt(str);
         switch (index) {
-            case 1 -> dd = MainS.townd();//比例求比器
-            case 2 -> dd = MainS.YFd();//查看是否成比例
-            case 3 -> dd = MainS.castRund();//化简器
-            case 4 -> dd = MainS.yin_shu();//因数求解器
-            case 5 -> dd = MainS.usetwoyinshu();//多数公因数求解器[beta]
-            default -> MainS.error();
+            case 1:
+                dd = MainS.townd();//比例求比器
+                break;
+            case 2:
+                dd = MainS.YFd();//查看是否成比例
+                break;
+            case 3:
+                dd = MainS.castRund();//化简器
+                break;
+            case 4:
+                dd = MainS.yin_shu();//因数求解器
+                break;
+            case 5:
+                dd = MainS.usetwoyinshu();//多数公因数求解器[beta]
+                break;
+            default:
+                MainS.error();
         }
 
 

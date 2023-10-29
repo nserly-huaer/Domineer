@@ -115,10 +115,17 @@ class Default {
 
             //switch表达式
             switch (SP) {
-                case 1 -> dd = MainS.Maths_C();
-                case 2 -> dd = MainS.fileRund();
-                case 3 -> dd = MainS.gamed();
-                default -> MainS.error();
+                case 1:
+                    dd = MainS.Maths_C();
+                    break;
+                case 2:
+                    dd = MainS.fileRund();
+                    break;
+                case 3:
+                    dd = MainS.gamed();
+                    break;
+                default:
+                    MainS.error();
 
             }
 
