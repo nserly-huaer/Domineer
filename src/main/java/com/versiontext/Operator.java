@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Operator {
-    private final String version = "9.2.13";
+    private final String version = "9.5.26";
     Logger logger = LogManager.getLogger(Operator.class);
 
     public String[] version() {

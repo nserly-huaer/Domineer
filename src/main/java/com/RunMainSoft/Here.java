@@ -1,6 +1,5 @@
-package com.Connect;
+package com.RunMainSoft;
 
-import com.RunMainSoft.MainS;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,9 +71,16 @@ public class Here {//如果退出代码小于2则为正常退出，否则为异�
                 System.out.println("服务器与客户端之间的延迟为：" + (time - del) + "ms");
             }
             String time1 = "reDelay " + String.valueOf(time - del);
-            if (!div2)
+            if (!div2) {
+                div2 = true;
                 SendThread.out.write(time1.getBytes());
-            div2 = false;
+            }else{
+                div2 = false;
+            }
+        } else if (message.equals("exit")) {
+            System.out.println("服务器已关闭");
+            Default.Connect();
+            System.exit(0);
         } else {
             System.out.println(message);
             Write("INFO", message);

@@ -1,6 +1,5 @@
-package com.Connect;
+package com.RunMainSoft;
 
-import com.RunMainSoft.MainS;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
