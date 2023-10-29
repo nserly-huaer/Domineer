@@ -32,6 +32,9 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
+    - name: Check Code
+      run: mvn checkstyle:check
+
     - name: Build Application
       run: mvn clean install
 
@@ -44,4 +47,10 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
-        category: "/language:${{matrix.language}}"
+        queries: ./codeql-queries
+        languages: ${{ matrix.language }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        fail_on_error: true
+        codeql_db_url: ${{ steps.init.outputs.codeql_db_url }}
+        search_path: "."
+        max_memory: 16GiB
