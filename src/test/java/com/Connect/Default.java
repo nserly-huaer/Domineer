@@ -12,7 +12,7 @@ class Default {
     private static final Logger logger = LogManager.getLogger(Default.class);
 
     public static void main(String[] args) {
-        System.err.println("                                  <输入$Exit退出>");
+        System.out.println("                                  <输入$Exit退出>");
         // org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(Default.class);
         System.out.println("是否通过服务器来运行程序？(true是;false否)");
         logger.info("是否通过服务器来运行程序？(true是;false否)");
@@ -23,7 +23,6 @@ class Default {
         } else {
             offLine(args);
         }
-
     }
 
     private static void offLine(String[] args) {
@@ -48,7 +47,7 @@ class Default {
         }
     }
 
-    private static void Connect() {
+    public static void Connect() {
         logger.info("用户同意使用服务器");
         System.out.println("请输入服务器IP地址");
         logger.info("请输入服务器IP地址");
