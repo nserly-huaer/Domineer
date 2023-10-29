@@ -39,3 +39,9 @@ jobs:
       uses: github/codeql-action/analyze@v2
       with:
         category: "/language:${{matrix.language}}"
+
+    - name: Save Jar as Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: 工程文件
+        path: target/demo.jar
