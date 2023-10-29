@@ -147,10 +147,8 @@ public class MainS {
 //            System.out.println("-------------------免费声明：此程序处于测试阶段，有误差（误差不大），预计于2023/8/1正式发布-------------------");
             cm.runfirst();
             String end = "------------------------------结果： " + (long) Main.bcs + ":" + (long) Main.cs + "------------------------------";
-            String end1 = end.replace('-', '\s');
-            end1 = end1.trim();
             System.out.println(end);
-            logger.info(end1);
+            logger.info("结果：" + (long) Main.bcs + ":" + (long) Main.cs);
             System.err.println("\n\n" + "Done!                                            运行总耗时:" + Main.chartertime + "ms");
             logger.info("Done!运行总耗时:" + Main.chartertime + "ms");
             System.err.println("\n仅限个人使用，请勿用于商业用途！！！！\n版本所有权、解释权:nserly(恩瑟莉)");
