@@ -32,14 +32,14 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
+    - name: Build Application
+      run: mvn clean install
+
     - name: Save Jar as Artifact
       uses: actions/upload-artifact@v2
       with:
         name: 工程文件
         path: target/demo.jar
-
-    - name: Build Application
-      run: mvn clean install
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
