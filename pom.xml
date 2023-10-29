@@ -106,7 +106,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.11.0</version>
                     <configuration>
-                        <release>21</release>
+                        <release>14</release>
 <!--                        <source>21</source>-->
 <!--                        <target>21</target>-->
 <!--                        <encoding>UTF-8</encoding>-->
