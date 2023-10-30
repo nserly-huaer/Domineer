@@ -113,7 +113,7 @@ class Default {
                 System.exit(2);
             }
 
-            //switch表达式
+
             switch (SP) {
                 case 1:
                     dd = MainS.Maths_C();
