@@ -55,7 +55,7 @@ public class Dialog extends JDialog {
                 String userName = textField3.getText();
                 if (serverPort.equals("0"))
                     serverPort = "24824";
-                RunMain.c.Write("UserName", userName);
+                RunMain.c.WriteNotKeep("UserName", userName);
                 if (userName.equals("")) {
                     JOptionPane.showMessageDialog(Dialog.this, "Invalid Username!", "Error", JOptionPane.ERROR_MESSAGE);
                 } else if (validateInput(serverIP, Integer.parseInt(serverPort))) {

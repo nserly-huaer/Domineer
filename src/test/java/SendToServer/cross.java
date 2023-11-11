@@ -1,5 +1,6 @@
 package SendToServer;
 
+import Windows.BlurredGlassDialog;
 import Windows.Operating;
 import Windows.RunMain;
 import com.RunMainSoft.MainS;
@@ -13,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import static SendToServer.cross.logger;
+import static SendToServer.cross.op;
 
 public class cross {//如果退出代码小于2则为正常退出，否则为异常退出
     private static Socket socket;
@@ -24,6 +25,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
     private static OutputStream out;
     public static String IP;
     public static int Port;
+    public static Operating op;
 
     public static void Close() throws IOException {
         socket.close();
@@ -39,14 +41,9 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             logger.info("连接服务器成功！");
             UserLogin(RunMain.UserName);
             GetDelay.UserLogin(RunMain.UserName);
-
-            Operating op = new Operating("服务器连接成功~IP地址：" + IP);
-
-            // 创建读取线程
+            op = new Operating("服务器连接成功~IP地址：" + IP);
             Thread readThread = new Thread(new ReadThread(socket));
             readThread.start();
-
-
             // 创建 GetDelay 对象
             GetDelay getDelay = new GetDelay();
             // 启动 GetDelay 线程
@@ -54,10 +51,15 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
         } catch (IOException e) {
             MainS.centel(e, true);
             logger.error("服务器已经关闭");
-            JOptionPane.showMessageDialog(null, "can't connect the server,please try later!", "Error", JOptionPane.ERROR_MESSAGE);
-            RunMain.setVisible(true);
-//            Default.Connect();
+            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
+            dialog.pack(); // 设置窗体大小
+            dialog.setVisible(true);//将窗体设置为可视化
         }
+    }
+
+    public static void restart() {
+        op.dispose();
+        RunMain.Run();
     }
 
     public static void Write(String level, String message) throws IOException {
@@ -108,13 +110,13 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
                 div2 = false;
             }
         } else if (message.equals("exit")) {
+            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
+            dialog.pack(); // 设置窗体大小
+            dialog.setVisible(true);//将窗体设置为可视化
             Operating.ServerMessage("服务器已关闭");
-//            Default.Connect();
-            System.exit(0);
         } else {
             Operating.ServerMessage(message);
             Write("INFO", message);
-            logger.info(message);
         }
     }
 
@@ -124,7 +126,9 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             out.write(("UserName " + Name).getBytes());
             out.flush();
         } catch (IOException e) {
-            logger.error(e);
+            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
+            dialog.pack(); // 设置窗体大小
+            dialog.setVisible(true);//将窗体设置为可视化
         }
     }
 
@@ -152,7 +156,9 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             try {
                 Write("Error", e.toString());
             } catch (IOException ex) {
-                e.printStackTrace();
+                BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
+                dialog.pack(); // 设置窗体大小
+                dialog.setVisible(true);//将窗体设置为可视化
             }
         }
 
@@ -217,7 +223,9 @@ class ReadThread implements Runnable {
             }
         } catch (IOException e) {
             MainS.centel(e, true);
-            logger.error("读取失败，请重试");
+            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
+            dialog.pack(); // 设置窗体大小
+            dialog.setVisible(true);//将窗体设置为可视化
         }
 
     }
@@ -239,7 +247,9 @@ class GetDelay extends Thread {
             out.write(("UserName " + Name + "\n").getBytes());
             out.flush();
         } catch (IOException e) {
-            logger.error(e);
+            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
+            dialog.pack(); // 设置窗体大小
+            dialog.setVisible(true);//将窗体设置为可视化
         }
     }
 
@@ -277,11 +287,16 @@ class GetDelay extends Thread {
                         Operating.delay(String.valueOf(charter - 500) + "ms");
                     else
                         Operating.delay(charter + "ms");
+                } else if (message.equals("exit")) {
+                    Operating.delay("null");
+                    JOptionPane.showMessageDialog(null, "Server is Closed", "Error", JOptionPane.ERROR_MESSAGE);
                 } else continue;
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
+            dialog.pack(); // 设置窗体大小
+            dialog.setVisible(true);//将窗体设置为可视化
         }
     }
 }

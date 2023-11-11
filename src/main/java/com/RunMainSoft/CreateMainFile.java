@@ -42,6 +42,34 @@ public class CreateMainFile {
         this.file = file;
     }
 
+    public void WriteNotKeep(String key, String value) {
+        String message = key + ":" + value + "\n";
+        FileOutputStream f = null;
+        BufferedOutputStream bu = null;
+        try {
+            f = new FileOutputStream(file);
+            bu = new BufferedOutputStream(f);
+            bu.write(message.getBytes());
+            bu.flush();
+        } catch (IOException e) {
+            MainS.centel(e, true);
+        } finally {
+            if (f != null) {
+                try {
+                    f.close();
+                } catch (IOException e) {
+                    MainS.centel(e, true);
+                }
+            }
+            if (bu != null) {
+                try {
+                    bu.close();
+                } catch (IOException e) {
+                    MainS.centel(e, true);
+                }
+            }
+        }
+    }
     public void Write(String key, String value) {
         String message = key + ":" + value + "\n";
         FileOutputStream f = null;

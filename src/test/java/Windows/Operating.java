@@ -25,6 +25,7 @@ public class Operating extends JFrame {
         delay = new JLabel();
     }
 
+
     public static void ChangeUserInput(String message) {
         UserInput.setText(message);
     }
