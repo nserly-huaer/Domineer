@@ -1,6 +1,5 @@
 package SendToServer;
 
-import Windows.Dialog;
 import Windows.Operating;
 import Windows.RunMain;
 import com.RunMainSoft.MainS;
@@ -14,12 +13,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import static SendToServer.cross.logger;
+
 public class cross {//如果退出代码小于2则为正常退出，否则为异常退出
     private static Socket socket;
     public static final Scanner sc = new Scanner(System.in);
     public static final File PATH = new File("logs\\data\\client.log");
     public static final Logger logger = LogManager.getLogger(cross.class);
     public static boolean div2;
+    private static OutputStream out;
+    public static String IP;
+    public static int Port;
 
     public static void Close() throws IOException {
         socket.close();
@@ -27,17 +31,25 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
     }
 
     public static void RunSoft(String IP, int port) {
+        cross.IP = IP;
+        cross.Port = port;
         try {
             // 创建客户端套接字，连接服务器
             socket = new Socket(IP, port);
             logger.info("连接服务器成功！");
+            UserLogin(RunMain.UserName);
+            GetDelay.UserLogin(RunMain.UserName);
 
-            Operating op = new Operating("服务器连接成功~");
+            Operating op = new Operating("服务器连接成功~IP地址：" + IP);
 
             // 创建读取线程
             Thread readThread = new Thread(new ReadThread(socket));
             readThread.start();
-            Thread getDelay = new Thread(new GetDelay(IP, port), "ReadConnectDelay");
+
+
+            // 创建 GetDelay 对象
+            GetDelay getDelay = new GetDelay();
+            // 启动 GetDelay 线程
             getDelay.start();
         } catch (IOException e) {
             MainS.centel(e, true);
@@ -106,13 +118,22 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
         }
     }
 
+    public static void UserLogin(String Name) {
+        try {
+            out = socket.getOutputStream();
+            out.write(("UserName " + Name).getBytes());
+            out.flush();
+        } catch (IOException e) {
+            logger.error(e);
+        }
+    }
+
     public static void SendToServer(String message) {
-        OutputStream out = null;
         try {
             out = socket.getOutputStream();
             // 发送消息给服务器
             cross.Write("INFO", "用户输入：" + message);
-            cross.logger.info("用户输入：" + message);
+            logger.info("用户输入：" + message);
             if (message.trim().toLowerCase().equals("$exit")) {
                 out.write("exit".getBytes());
                 out.flush();
@@ -204,20 +225,26 @@ class ReadThread implements Runnable {
 
 class GetDelay extends Thread {
     private static Socket so;
+    private static OutputStream out;
     private boolean isConnect;
 
     protected static void Close() throws IOException {
         so.close();
     }
 
-    public GetDelay(String IP, int Port) {
+    public static void UserLogin(String Name) {
         try {
-            so = new Socket(IP, Port);
-            isConnect = true;
+            so = new Socket(cross.IP, cross.Port);
+            out = so.getOutputStream();
+            out.write(("UserName " + Name + "\n").getBytes());
+            out.flush();
         } catch (IOException e) {
-            isConnect = false;
-            e.printStackTrace();
+            logger.error(e);
         }
+    }
+
+    public GetDelay() {
+        isConnect = true;
     }
 
     @Override

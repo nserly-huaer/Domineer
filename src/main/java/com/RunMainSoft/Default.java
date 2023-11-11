@@ -56,7 +56,7 @@ class Default {
         int ServerPort = Integer.parseInt(scan.str().trim());
         logger.info("用户输入：" + ServerIP);
         CreateMainFile c = new CreateMainFile(new File("data\\Server"));
-        c.Write(ServerIP, ServerPort);
+        c.Write(ServerIP, String.valueOf(ServerPort));
         Here.RunSoft(ServerIP, ServerPort);
 //            System.exit(1);
     }

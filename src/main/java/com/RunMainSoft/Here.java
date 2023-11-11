@@ -162,7 +162,6 @@ class SendThread implements Runnable {
     public SendThread(Socket socket) {
         this.socket = socket;
     }
-
     @Override
     public void run() {
         try {
@@ -181,7 +180,6 @@ class SendThread implements Runnable {
                     Here.div2 = true;
                     String cache = "getdelay " + System.currentTimeMillis();
                     out.write(cache.getBytes());
-                    continue;
                 } else {
                     message = "messageSender " + message;
                     out.write(message.getBytes());

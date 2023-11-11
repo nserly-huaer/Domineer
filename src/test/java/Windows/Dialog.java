@@ -1,5 +1,7 @@
 package Windows;
 
+import com.RunMainSoft.CreateMainFile;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,6 +18,7 @@ public class Dialog extends JDialog {
             "^(?:(?:(?:[0-9A-Fa-f]{1,4}):){6}|(?=(?:[0-9A-Fa-f]{0,4}:){0,6}(?:[0-9A-Fa-f]{0,4}$))(?:(?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?::(?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?))$";
     private JTextField textField1;
     private JTextField textField2;
+    private JTextField textField3;
 
     public Dialog(JFrame j, String title, boolean modal) {
         super(j, title, modal);
@@ -32,11 +35,10 @@ public class Dialog extends JDialog {
         textField1 = new JTextField(RunMain.ServerIP);
 
         JLabel label2 = new JLabel("Server Port:");
-        if (RunMain.ServerPort != 0)
-            textField2 = new JTextField(String.valueOf(RunMain.ServerPort));
-        else
-            textField2 = new JTextField();
+        textField2 = new JTextField(String.valueOf(RunMain.ServerPort));
 
+        JLabel userNameLabel = new JLabel("User Name:");
+        textField3 = new JTextField(CreateMainFile.Search(RunMain.c.Read(), "UserName"));
 
         JButton button = new JButton("OK");
         addWindowListener(new WindowAdapter() {
@@ -50,10 +52,16 @@ public class Dialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 String serverIP = textField1.getText();
                 String serverPort = textField2.getText();
-
-                if (validateInput(serverIP, Integer.parseInt(serverPort))) {
+                String userName = textField3.getText();
+                if (serverPort.equals("0"))
+                    serverPort = "24824";
+                RunMain.c.Write("UserName", userName);
+                if (userName.equals("")) {
+                    JOptionPane.showMessageDialog(Dialog.this, "Invalid Username!", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if (validateInput(serverIP, Integer.parseInt(serverPort))) {
                     RunMain.ServerIP = serverIP;
                     RunMain.ServerPort = Integer.parseInt(serverPort);
+                    RunMain.UserName = userName;
                     setVisible(false);
                     RunMain r = new RunMain();
                     r.Connect();
@@ -66,11 +74,14 @@ public class Dialog extends JDialog {
             }
         });
 
-        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
+        JPanel panel = new JPanel(new GridLayout(4, 2, 10, 10));
         panel.add(label1);
         panel.add(textField1);
         panel.add(label2);
         panel.add(textField2);
+        panel.add(userNameLabel);
+        panel.add(textField3);
+        panel.add(new JLabel()); // 占位，保持布局一致
         panel.add(button);
 
         Container contentPane = getContentPane();
@@ -78,27 +89,20 @@ public class Dialog extends JDialog {
         contentPane.add(jb, BorderLayout.NORTH);
         contentPane.add(panel, BorderLayout.CENTER);
 
-            setVisible(true);
+        setVisible(true);
     }
 
     private boolean validateInput(String serverIP, int serverPort) {
-        // Add your input validation logic here
-        // For example, check if serverIP is a valid IP address and serverPort is a valid integer
-        Pattern Ipv4 = Pattern.compile(IPv4_REGEX);
-        Matcher matcherV4 = Ipv4.matcher(serverIP);
-        boolean ipv4 = matcherV4.matches();
+        Pattern ipv4 = Pattern.compile(IPv4_REGEX);
+        Matcher matcherV4 = ipv4.matcher(serverIP);
+        boolean isIPv4 = matcherV4.matches();
 
-        Pattern Ipv6 = Pattern.compile(IPv6_REGEX);
-        Matcher matcher = Ipv6.matcher(serverIP);
-        boolean ipv6 = matcher.matches();
+        Pattern ipv6 = Pattern.compile(IPv6_REGEX);
+        Matcher matcherV6 = ipv6.matcher(serverIP);
+        boolean isIPv6 = matcherV6.matches();
 
         boolean isRightPort = (serverPort > 0) && (serverPort <= 65535);
 
-        if (isRightPort && ipv6)
-            return true;
-        else if (isRightPort && ipv4)
-            return true;
-
-        return false; // Return true if input is valid, false otherwise
+        return (isRightPort && (isIPv4 || isIPv6));
     }
 }

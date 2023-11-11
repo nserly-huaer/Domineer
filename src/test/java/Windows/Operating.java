@@ -49,6 +49,8 @@ public class Operating extends JFrame {
     }
 
     public Operating(String title) {
+
+
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         Container con = getContentPane();
         setTitle(title);
@@ -144,6 +146,7 @@ public class Operating extends JFrame {
                 int option = JOptionPane.showConfirmDialog(null, "确定要关闭窗口吗？", "提示", JOptionPane.OK_CANCEL_OPTION);
                 if (option == JOptionPane.OK_OPTION) {
                     try {
+                        cross.SendToServer("$exit");
                         cross.Close();
                         System.exit(1);
                     } catch (IOException ex) {

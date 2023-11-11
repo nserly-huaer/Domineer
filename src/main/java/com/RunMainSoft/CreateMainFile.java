@@ -4,6 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class CreateMainFile {
     public File file;
@@ -16,8 +19,19 @@ public class CreateMainFile {
         }
     }
 
+    public CreateMainFile(final String PATH) {
+        File f = new File(PATH);
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                MainS.centel(e, true);
+            }
+        }
+        this.file = f;
+    }
+
     public CreateMainFile(File file) {
-        this.file = file;
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -25,10 +39,11 @@ public class CreateMainFile {
                 MainS.centel(e, true);
             }
         }
+        this.file = file;
     }
 
-    public void Write(String ServerIP, int ServerPort) {
-        String message = ServerIP + " " + ServerPort + "\n";
+    public void Write(String key, String value) {
+        String message = key + ":" + value + "\n";
         FileOutputStream f = null;
         BufferedOutputStream bu = null;
         try {
@@ -56,7 +71,25 @@ public class CreateMainFile {
         }
     }
 
-    public static void Read() {
-        //....
+    public Map<String, String> Read() {
+        FileReader fr = null;
+        BufferedReader bu = null;
+        Map<String, String> map = new HashMap<>();
+        try {
+            fr = new FileReader(file);
+            bu = new BufferedReader(fr);
+            String line;
+            while ((line = bu.readLine()) != null) {
+                String cache[] = line.split(":", 2);
+                map.put(cache[0].trim(), cache[1].trim());
+            }
+        } catch (IOException e) {
+            logger.error(e);
+        }
+        return map;
+    }
+
+    public static String Search(final Map<String, String> map, String key) {
+        return map.get(key);
     }
 }

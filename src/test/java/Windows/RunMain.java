@@ -1,6 +1,7 @@
 package Windows;
 
 import SendToServer.cross;
+import com.RunMainSoft.CreateMainFile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,13 +11,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RunMain {
+    public static CreateMainFile c;
     private static final Logger logger = LogManager.getLogger(RunMain.class);
     public static int ServerPort;
     public static String ServerIP;
+    public static String UserName;
 
     public static Fram f;
 
     public static void main(String[] args) {
+        c = new CreateMainFile("data\\UserInfo.uit");
         Run();
     }
 
