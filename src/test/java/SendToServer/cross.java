@@ -63,10 +63,10 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
 
     public static void Write(String level, String message) throws IOException {
         String write = getFirst(level) + message;
-        if (level.toLowerCase().equals("error")) {
+        if (level.equalsIgnoreCase("error")) {
             BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
             Operating.ServerMessage(write);
-        } else if (level.toLowerCase().equals("warn")) {
+        } else if (level.equalsIgnoreCase("warn")) {
             Operating.ServerMessage(write);
         }
         WriteLog(write);
@@ -102,7 +102,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
                 logger.info("服务器与客户端之间的延迟为：" + (time - del) + "ms");
                 Operating.ServerMessage("服务器与客户端之间的延迟为：" + (time - del) + "ms");
             }
-            String time1 = "reDelay " + String.valueOf(time - del);
+            String time1 = "reDelay " + (time - del);
             if (!div2) {
                 div2 = true;
                 socket.getOutputStream().write(time1.getBytes());
@@ -134,12 +134,12 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             // 发送消息给服务器
             cross.Write("INFO", "用户输入：" + message);
             logger.info("用户输入：" + message);
-            if (message.trim().toLowerCase().equals("$exit")) {
+            if (message.trim().equalsIgnoreCase("$exit")) {
                 out.write("exit".getBytes());
                 out.flush();
                 socket.close();
                 System.exit(1);
-            } else if (message.trim().toLowerCase().equals("delay")) {
+            } else if (message.trim().equalsIgnoreCase("delay")) {
                 cross.div2 = true;
                 String cache = "getdelay " + System.currentTimeMillis();
                 out.write(cache.getBytes());
@@ -192,7 +192,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
 
 // 读取线程
 class ReadThread implements Runnable {
-    private Socket socket;
+    private final Socket socket;
     private static final Logger logger = LogManager.getLogger(ReadThread.class);
 
     public ReadThread(Socket socket) {
@@ -226,7 +226,7 @@ class ReadThread implements Runnable {
 class GetDelay extends Thread {
     private static Socket so;
     private static OutputStream out;
-    private boolean isConnect;
+    private final boolean isConnect;
 
     protected static void Close() throws IOException {
         so.close();
@@ -274,7 +274,7 @@ class GetDelay extends Thread {
                     long time = System.currentTimeMillis();
                     long charter = time - del;
                     if (charter >= 500)
-                        Operating.delay(String.valueOf(charter - 500) + "ms");
+                        Operating.delay(charter - 500 + "ms");
                     else
                         Operating.delay(charter + "ms");
                 } else if (message.equals("exit")) {

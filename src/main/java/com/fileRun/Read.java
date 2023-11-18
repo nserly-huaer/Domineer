@@ -205,7 +205,7 @@ public class Read {
 
                 f1 = new FileInputStream(f);
                 bu = new BufferedInputStream(f1);
-                byte b[] = new byte[102400];// 缓存区
+                byte[] b = new byte[102400];// 缓存区
                 int length = bu.read(b);
                 logger.info("文件长度(Byte数组)" + length);
                 if (begintime != 0) {

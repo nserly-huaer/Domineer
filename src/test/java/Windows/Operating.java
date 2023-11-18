@@ -11,10 +11,10 @@ import java.io.IOException;
 
 public class Operating extends JFrame {
     private static final Logger logger = LogManager.getLogger(Operating.class);
-    private static JTextField UserInput;
-    private static JTextArea Logs;
-    private static JTextArea ServerMessage;
-    private static JLabel delay;
+    private static final JTextField UserInput;
+    private static final JTextArea Logs;
+    private static final JTextArea ServerMessage;
+    private static final JLabel delay;
 
     static {
         UserInput = new JTextField();

@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 public class Finally {
     void finallyt() {
         Logger logger = LogManager.getLogger(Finally.class);
-        long starttime = There.starttime;
+        long starttime = There.StartTime;
         logger.info("开始时间" + starttime);
         long endtime = System.currentTimeMillis();
         logger.info("结束时间" + endtime);

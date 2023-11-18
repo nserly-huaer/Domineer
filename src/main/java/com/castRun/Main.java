@@ -13,7 +13,7 @@ public class Main {
     // 时间差，用来记录用时时长
     public static long chartertime;
     // 乘以个数，数字越大支持越大小数，同时计算速度将减少
-    private static long charter = 10000000000L;
+    private static final long charter = 10000000000L;
 
     public void runfirst() {
         Logger logger = LogManager.getLogger(Main.class);
@@ -49,11 +49,7 @@ public class Main {
         logger.info("用户输入:" + cs);
         Main.bcs = bcs;
         Main.cs = cs;
-        if (cs != 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return cs != 0;
     }
 
     public void cast(double bcs, double cs, long begintime) throws ZeroException {
@@ -85,7 +81,7 @@ public class Main {
                         bcs123 = bcs123 / i;//
                         cs123 = cs123 / i;//
                     } else {
-                        break b;
+                        break;
                     }
                 }
             }

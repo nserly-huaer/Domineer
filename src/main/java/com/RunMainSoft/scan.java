@@ -8,7 +8,7 @@ public class scan {
         Scanner sc = new Scanner(System.in);
         String st = null;
         for (; ; ) {
-            st = new String(sc.nextLine());
+            st = sc.nextLine();
             st = st.trim();
             if (!st.isEmpty())
                 break;

@@ -23,7 +23,7 @@ public class ExampleClass {
         for (int i = 1; i < howMany + 1; i++) {
             System.out.println("请输入第" + i + "个自然数：");
             logger.info("请输入第" + i + "个自然数：");
-            String d = new String(String.valueOf(sc.nextLong()));
+            String d = String.valueOf(sc.nextLong());
             str = str.append(d);
             logger.info("用户输入:" + d);
             str = str.append("、");

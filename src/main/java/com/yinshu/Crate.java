@@ -28,7 +28,7 @@ public class Crate {
         logger.info("结束时间：" + endtime);
         Crate.endtime = endtime;
         String sa = "";
-        sa += l + "的因数为(" + i1 + "个)：" + result.toString();
+        sa += l + "的因数为(" + i1 + "个)：" + result;
         return sa;
     }
 

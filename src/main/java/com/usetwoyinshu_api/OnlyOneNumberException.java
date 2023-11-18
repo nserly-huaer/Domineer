@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 public class OnlyOneNumberException extends Exception {
     //异常信息
-    private String ExceptionMessage;
+    private final String ExceptionMessage;
 
     public OnlyOneNumberException(String ExceptionMessage) {
         super(ExceptionMessage);

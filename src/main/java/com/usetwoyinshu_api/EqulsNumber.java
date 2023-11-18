@@ -15,7 +15,7 @@ public class EqulsNumber implements Runnable {
         Thread t1 = new Thread(this, "third");
         Thread t2 = new Thread(this, "forth");
         Random r = new Random(2);
-        this.a--;
+        EqulsNumber.a--;
 //        a--;
         while (a > 0) {
             if (r.nextInt(2) == 1) {

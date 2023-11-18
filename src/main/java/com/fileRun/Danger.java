@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("serial")
 public class Danger extends Exception {
-    private String ExceptionMessage;
+    private final String ExceptionMessage;
 
     public Danger(String ExceptionMessage) {
         super(ExceptionMessage);

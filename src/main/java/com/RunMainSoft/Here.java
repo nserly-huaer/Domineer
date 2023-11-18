@@ -70,7 +70,7 @@ public class Here {//如果退出代码小于2则为正常退出，否则为异�
                 logger.info("服务器与客户端之间的延迟为：" + (time - del) + "ms");
                 System.out.println("服务器与客户端之间的延迟为：" + (time - del) + "ms");
             }
-            String time1 = "reDelay " + String.valueOf(time - del);
+            String time1 = "reDelay " + (time - del);
             if (!div2) {
                 div2 = true;
                 SendThread.out.write(time1.getBytes());
@@ -121,7 +121,7 @@ public class Here {//如果退出代码小于2则为正常退出，否则为异�
 
 // 读取线程
 class ReadThread implements Runnable {
-    private Socket socket;
+    private final Socket socket;
     private static final Logger logger = LogManager.getLogger(ReadThread.class);
 
     public ReadThread(Socket socket) {
@@ -157,7 +157,7 @@ class SendThread implements Runnable {
     private static final Logger logger = LogManager.getLogger(SendThread.class);
     public static OutputStream out = null;
     private static final Scanner sc = new Scanner(System.in);
-    private Socket socket;
+    private final Socket socket;
 
     public SendThread(Socket socket) {
         this.socket = socket;
@@ -171,12 +171,12 @@ class SendThread implements Runnable {
                 String message = sc.nextLine();
                 Here.Write("INFO", "用户输入：" + message);
                 Here.logger.info("用户输入：" + message);
-                if (message.trim().toLowerCase().equals("$exit")) {
+                if (message.trim().equalsIgnoreCase("$exit")) {
                     out.write("exit".getBytes());
                     out.flush();
                     socket.close();
                     System.exit(1);
-                } else if (message.trim().toLowerCase().equals("delay")) {
+                } else if (message.trim().equalsIgnoreCase("delay")) {
                     Here.div2 = true;
                     String cache = "getdelay " + System.currentTimeMillis();
                     out.write(cache.getBytes());
@@ -193,7 +193,7 @@ class SendThread implements Runnable {
             MainS.centel(e, true);
             logger.error("发送失败，请重试~");
             try {
-                Here.Write("Error", "用户输入：" + e.toString());
+                Here.Write("Error", "用户输入：" + e);
             } catch (IOException ex) {
                 MainS.centel(ex, true);
                 logger.error("写入失败，请重试~");

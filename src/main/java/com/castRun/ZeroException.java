@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("serial")
 public class ZeroException extends Exception {
-    private String ExceptionMessage;
+    private final String ExceptionMessage;
 
     public ZeroException(int i, String ExceptionMessage) {
         super(ExceptionMessage);

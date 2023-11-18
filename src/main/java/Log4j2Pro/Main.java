@@ -21,7 +21,7 @@ public class Main {
             String tg1 = String.format("%tT", d);
             String tg2 = String.format("Appeared Exception time:%tF ", d);
             String tg = tg2 + tg1 + "\n";
-            byte b3[] = tg.getBytes();
+            byte[] b3 = tg.getBytes();
             String frt = System.getProperty("line.separator");
             try {
                 bu.write(frt.getBytes());

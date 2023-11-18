@@ -25,11 +25,7 @@ public class Main {
         double cs = Double.parseDouble(scan.str());// 除数
         this.bcs = bcs;
         this.cs = cs;
-        if (cs != 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return cs != 0;
     }
 
     public void cast(double bcs, double cs) {
@@ -49,7 +45,7 @@ public class Main {
                     bcs123 = bcs123 / i;//
                     cs123 = cs123 / i;//
                 } else {
-                    break b;
+                    break;
                 }
             }
         }

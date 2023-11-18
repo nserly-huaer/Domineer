@@ -119,7 +119,7 @@ public class MainS {
                 System.exit(1);
                 return true;
             }
-            @SuppressWarnings("removal") Integer in = new Integer(ST1);
+            @SuppressWarnings("removal") Integer in = Integer.valueOf(ST1);
             int ST = in.intValue();
             System.out.println("请输入文件路径");
             logger.info("控制台提示：请输入文件路径");

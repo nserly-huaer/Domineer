@@ -4,15 +4,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class There {
-    static long starttime;
+    static long StartTime;
 
-    void cheack(double u, double i, double o, double p) throws NoNullException {
+    void Check(double u, double i, double o, double p) throws NoNullException {
 
         Logger logger = LogManager.getLogger(First.class);
         First f = new First();
-        long starttime = System.currentTimeMillis();
-        logger.info("开始时间" + starttime);
-        There.starttime = starttime;
+        long StartTime = System.currentTimeMillis();
+        logger.info("开始时间" + StartTime);
+        There.StartTime = StartTime;
         if (u == 0)
             f.Run(u, i, o, p);
         else if (i == 0)

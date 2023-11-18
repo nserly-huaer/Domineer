@@ -52,15 +52,6 @@ public class Start {
         long beginTime = System.currentTimeMillis();
         boolean exception = false;
         try {
-//            for (int i = 0; i < openPath.length; i++) {
-//                if (openPath[i].isEmpty())
-//                    continue;
-//                String cmd = openPath[i];
-//                ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "start", "notepad.exe", cmd);
-//                process = processBuilder.start();
-//            }
-
-
             for (int i = 0; i < openPath.length; i++) {
                 if (openPath[i].isEmpty())
                     continue;
@@ -96,7 +87,7 @@ public class Start {
                     bd = bd.divide(new BigDecimal(1000), 2, RoundingMode.HALF_UP);
                 }
                 if (b) {
-                    System.out.println("------------------------------------------------\n运行完毕！(总耗时" + bd.toString() + "s)");
+                    System.out.println("------------------------------------------------\n运行完毕！(总耗时" + bd + "s)");
                     logger.info("运行完毕！(总耗时：" + charter + "s)");
                 } else {
                     System.out.println("------------------------------------------------\n运行完毕！(总耗时" + (long) charter + "ms)");

@@ -16,7 +16,7 @@ public class Scan {
         String str = null;
         Logger logger = LogManager.getLogger(Scan.class);
         System.out.println("请输入某个因数");
-        str = new String(scan.str());
+        str = scan.str();
         logger.info("请输入某个因数:" + str);
         return str;
     }

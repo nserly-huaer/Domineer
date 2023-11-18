@@ -26,7 +26,6 @@ public class TwoThread implements Runnable {
 
     //如果此处执行成功，则返回true；否则返回false
     public boolean Run() throws ZeroNumberException, OnlyOneNumberException {
-//        EqulsNumber.cacheEquals = null;
         number = new long[howMany];
         result1 = new long[howMany][];
         if (howMany < 1) {
@@ -35,7 +34,7 @@ public class TwoThread implements Runnable {
             throw new OnlyOneNumberException("Number size is one");
         }
 
-        this.number = com.usetwoyinshu_api.Main.Slip(str);
+        number = com.usetwoyinshu_api.Main.Slip(str);
         Thread first = new Thread(this, "first");
         Thread second = new Thread(this, "second");
         first.run();
@@ -71,14 +70,9 @@ public class TwoThread implements Runnable {
 
     @Override
     public void run() {
-//        com.yinshu_api.Main ma = new com.yinshu_api.Main();
-//        ma.run_Main(String.valueOf(firstYinshu));
-//        String a = com.yinshu_api.Main.result;
-
         Main m = new Main();
         if (!(times >= howMany)) {
             m.run_Main(String.valueOf(number[times]));
-            //        long[] l = StringTolong.Cast(Main.result);
             String a = com.yinshu_api.Main.result;
             long[] l = StringTolong.Cast(a);
             TwoThread.result1[times] = l;
@@ -99,7 +93,7 @@ public class TwoThread implements Runnable {
     }
 
     public TwoThread(int howMany, StringBuffer str) {
-        this.howMany = howMany;
-        this.str = str;
+        TwoThread.howMany = howMany;
+        TwoThread.str = str;
     }
 }

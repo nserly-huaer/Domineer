@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.swing.*;
 
 public class ZeroNumberException extends Exception {
-    private String ExceptionMessage;
+    private final String ExceptionMessage;
 
     public ZeroNumberException(String ExceptionMessage) {
         super(ExceptionMessage);

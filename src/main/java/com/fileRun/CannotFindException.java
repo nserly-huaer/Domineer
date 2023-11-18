@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("serial")
 public class CannotFindException extends Exception {
-    private String ExceptionMessage;
+    private final String ExceptionMessage;
     public CannotFindException(int i,String ExceptionMessage) {
         super(ExceptionMessage);
         this.ExceptionMessage=ExceptionMessage;

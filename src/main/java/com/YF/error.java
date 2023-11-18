@@ -9,7 +9,7 @@ import com.fileRun.Read;
 
 @SuppressWarnings("serial")
 public class error extends Exception {
-    private String ExceptionMessage;
+    private final String ExceptionMessage;
 
     public error(String ExceptionMessage) {
         super(ExceptionMessage);

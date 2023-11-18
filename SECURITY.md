@@ -17,4 +17,4 @@ currently being supported with security updates.
 
 You can acess my web "nserly.rth1.app/Report" to report bug!
 
-If we accepted your Vulnerability,we will restored quickly them,and thanks all for reporting many valneravility to us!
+If we accepted your Vulnerability,we will restore quickly them,and thanks all for reporting many valneravility to us!

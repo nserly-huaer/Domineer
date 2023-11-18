@@ -43,7 +43,7 @@ public class Da {
 
             There t = new There();
             try {
-                t.cheack(u, i, o, p);
+                t.Check(u, i, o, p);
             } catch (NoNullException e) {
                 logger.error(e);
             }

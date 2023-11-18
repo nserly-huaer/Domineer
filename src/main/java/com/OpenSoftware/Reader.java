@@ -45,7 +45,7 @@ public class Reader {
     public String[] Read() {
         FileInputStream f1 = null;
         BufferedInputStream bu = null;
-        String result[] = null;
+        String[] result = null;
         try {
             f1 = new FileInputStream(Cache);
             bu = new BufferedInputStream(f1);

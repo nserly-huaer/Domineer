@@ -107,7 +107,7 @@ public class CreateMainFile {
             bu = new BufferedReader(fr);
             String line;
             while ((line = bu.readLine()) != null) {
-                String cache[] = line.split(":", 2);
+                String[] cache = line.split(":", 2);
                 map.put(cache[0].trim(), cache[1].trim());
             }
         } catch (IOException e) {

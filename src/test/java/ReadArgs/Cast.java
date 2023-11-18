@@ -12,7 +12,7 @@ class Cast {
     Cast(String[] args) {
         //如果数组长度不为0则将值传递给args，否则将Error赋值true
         if (args.length != 0) {
-            this.args = args;
+            Cast.args = args;
         } else {
             Error = true;
         }
