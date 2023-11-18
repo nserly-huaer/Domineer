@@ -4,8 +4,6 @@ import com.RunMainSoft.CreateMainFile;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.regex.Matcher;
@@ -15,7 +13,7 @@ public class Dialog extends JDialog {
     private static final String IPv4_REGEX =
             "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
     private static final String IPv6_REGEX =
-            "^(?:(?:(?:[0-9A-Fa-f]{1,4}):){6}|(?=(?:[0-9A-Fa-f]{0,4}:){0,6}(?:[0-9A-Fa-f]{0,4}$))(?:(?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?::(?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?))$";
+            "^(([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4})*)|::([0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4})*)?)$";
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
@@ -47,30 +45,27 @@ public class Dialog extends JDialog {
                 RunMain.f.setVisible(true);
             }
         });
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String serverIP = textField1.getText();
-                String serverPort = textField2.getText();
-                String userName = textField3.getText();
-                if (serverPort.equals("0"))
-                    serverPort = "24824";
-                RunMain.c.WriteNotKeep("UserName", userName);
-                if (userName.equals("")) {
-                    JOptionPane.showMessageDialog(Dialog.this, "Invalid Username!", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if (validateInput(serverIP, Integer.parseInt(serverPort))) {
-                    RunMain.ServerIP = serverIP;
-                    RunMain.ServerPort = Integer.parseInt(serverPort);
-                    RunMain.UserName = userName;
-                    setVisible(false);
-                    RunMain r = new RunMain();
-                    r.Connect();
-                    //关闭窗体
-                    dispose();
+        button.addActionListener(e -> {
+            String serverIP = textField1.getText();
+            String serverPort = textField2.getText();
+            String userName = textField3.getText();
+            if (serverPort.equals("0"))
+                serverPort = "24824";
+            RunMain.c.WriteNotKeep("UserName", userName);
+            if (userName.isEmpty()) {
+                JOptionPane.showMessageDialog(Dialog.this, "Invalid Username!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (validateInput(serverIP, Integer.parseInt(serverPort))) {
+                RunMain.ServerIP = serverIP;
+                RunMain.ServerPort = Integer.parseInt(serverPort);
+                RunMain.UserName = userName;
+                setVisible(false);
+                RunMain r = new RunMain();
+                r.Connect();
+                //关闭窗体
+                dispose();
 
-                } else {
-                    JOptionPane.showMessageDialog(Dialog.this, "Invalid server information!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            } else {
+                JOptionPane.showMessageDialog(Dialog.this, "Invalid server information!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 

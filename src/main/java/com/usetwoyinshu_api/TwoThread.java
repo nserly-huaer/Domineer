@@ -31,7 +31,7 @@ public class TwoThread implements Runnable {
         result1 = new long[howMany][];
         if (howMany < 1) {
             throw new ZeroNumberException("No any Number");
-        }else if(howMany == 1){
+        } else if (howMany == 1) {
             throw new OnlyOneNumberException("Number size is one");
         }
 

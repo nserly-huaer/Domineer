@@ -13,7 +13,7 @@ public class Main {
     // 时间差，用来记录用时时长
     public static long chartertime;
     // 乘以个数，数字越大支持越大小数，同时计算速度将减少
-    static long charter = 10000000000L;
+    private static long charter = 10000000000L;
 
     public void runfirst() {
         Logger logger = LogManager.getLogger(Main.class);
@@ -63,7 +63,7 @@ public class Main {
         Main m = new Main();
         logger.info("运行-转最简比例器");
         if (!m.Calaurtor((long) bcs123, (long) cs123, begintime)) {
-            throw new ZeroException(2,"Casted Number Error!");
+            throw new ZeroException(2, "Casted Number Error!");
         }
     }
 

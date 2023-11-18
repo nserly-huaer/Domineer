@@ -51,13 +51,12 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
         } catch (IOException e) {
             MainS.centel(e, true);
             logger.error("服务器已经关闭");
-            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
-            dialog.pack(); // 设置窗体大小
-            dialog.setVisible(true);//将窗体设置为可视化
+            BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
         }
     }
 
     public static void restart() {
+        BlurredGlassDialog.dialog.dispose();
         op.dispose();
         RunMain.Run();
     }
@@ -65,6 +64,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
     public static void Write(String level, String message) throws IOException {
         String write = getFirst(level) + message;
         if (level.toLowerCase().equals("error")) {
+            BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
             Operating.ServerMessage(write);
         } else if (level.toLowerCase().equals("warn")) {
             Operating.ServerMessage(write);
@@ -110,9 +110,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
                 div2 = false;
             }
         } else if (message.equals("exit")) {
-            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
-            dialog.pack(); // 设置窗体大小
-            dialog.setVisible(true);//将窗体设置为可视化
+            BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
             Operating.ServerMessage("服务器已关闭");
         } else {
             Operating.ServerMessage(message);
@@ -126,9 +124,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             out.write(("UserName " + Name).getBytes());
             out.flush();
         } catch (IOException e) {
-            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
-            dialog.pack(); // 设置窗体大小
-            dialog.setVisible(true);//将窗体设置为可视化
+            BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
         }
     }
 
@@ -156,9 +152,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             try {
                 Write("Error", e.toString());
             } catch (IOException ex) {
-                BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
-                dialog.pack(); // 设置窗体大小
-                dialog.setVisible(true);//将窗体设置为可视化
+                BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
             }
         }
 
@@ -223,9 +217,7 @@ class ReadThread implements Runnable {
             }
         } catch (IOException e) {
             MainS.centel(e, true);
-            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
-            dialog.pack(); // 设置窗体大小
-            dialog.setVisible(true);//将窗体设置为可视化
+            BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
         }
 
     }
@@ -247,9 +239,7 @@ class GetDelay extends Thread {
             out.write(("UserName " + Name + "\n").getBytes());
             out.flush();
         } catch (IOException e) {
-            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
-            dialog.pack(); // 设置窗体大小
-            dialog.setVisible(true);//将窗体设置为可视化
+            BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
         }
     }
 
@@ -294,9 +284,7 @@ class GetDelay extends Thread {
 
             }
         } catch (Exception e) {
-            BlurredGlassDialog dialog = new BlurredGlassDialog(op, "can't connect the server,please try later!", "Error");
-            dialog.pack(); // 设置窗体大小
-            dialog.setVisible(true);//将窗体设置为可视化
+            BlurredGlassDialog.Show(op, "can't connect the server,please try later!", "Error");
         }
     }
 }

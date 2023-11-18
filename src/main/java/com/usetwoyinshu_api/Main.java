@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * &#064;Nserly
+ * 此类只支持2个因数，如需求更多因数，请见TwoThread.java类
  * 此类中的成员方法说明：
  * usetime为处理时长（单位为“ms”）
  * result用于返回公因数，类型为String

@@ -9,10 +9,13 @@ import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 
 public class BlurredGlassDialog extends JDialog {
+    public static JDialog jd;
+    public static BlurredGlassDialog dialog;
+
     public BlurredGlassDialog(JFrame parent, String message, String title) {
-        super(parent, title, true);
+        super(parent, title, false);
         setUndecorated(true);
-        setOpacity(0.85f); // 设置窗体透明度为0.85
+        setOpacity(0.85f);
 
         JPanel panel = new JPanel() {
             @Override
@@ -21,31 +24,38 @@ public class BlurredGlassDialog extends JDialog {
                 Graphics2D g2 = (Graphics2D) g.create();
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2.setColor(getBackground());
-                g2.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30)); // 绘制圆角矩形
+                g2.fill(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
                 g2.dispose();
             }
         };
+
+        JButton okButton = new JButton("Ok");
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jd.dispose();
+                cross.restart();
+            }
+        });
+
         panel.setOpaque(false);
         panel.setLayout(new BorderLayout());
         JLabel label = new JLabel(message);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, BorderLayout.CENTER);
+        panel.add(okButton, BorderLayout.SOUTH);
 
-        JButton okButton = new JButton("确定");
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cross.restart();
-            }
-        });
+        jd = new JDialog(this, "Server is closed", true);
+        jd.setUndecorated(true);
+        jd.setOpacity(0.85f);
+        jd.add(panel);
+        jd.pack();
+        jd.setSize(572, 195);
+        jd.setLocationRelativeTo(this);
+    }
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setOpaque(false);
-        buttonPanel.add(okButton);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
-
-        add(panel);
-        pack();
-        setLocationRelativeTo(parent);
+    public static void Show(JFrame parent, String message, String title) {
+        dialog = new BlurredGlassDialog(parent, message, title);
+        jd.setVisible(true);
     }
 }

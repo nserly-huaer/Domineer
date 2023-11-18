@@ -5,17 +5,16 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class CreateMainFile {
     public File file;
-    public static final File conter = new File("data");
+    public static final File counter = new File("data");
     private static final Logger logger = LogManager.getLogger(CreateMainFile.class);
 
-    {
-        if (!conter.exists()) {
-            conter.mkdir();
+    static {
+        if (!counter.exists()) {
+            counter.mkdir();
         }
     }
 
