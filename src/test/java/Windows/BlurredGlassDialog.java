@@ -55,7 +55,10 @@ public class BlurredGlassDialog extends JDialog {
     }
 
     public static void Show(JFrame parent, String message, String title) {
-        dialog = new BlurredGlassDialog(parent, message, title);
-        jd.setVisible(true);
+        if (!RunMain.d.isShowing()) {
+            dialog = new BlurredGlassDialog(parent, message, title);
+            jd.setVisible(true);
+            RunMain.f.setVisible(true);
+        }
     }
 }

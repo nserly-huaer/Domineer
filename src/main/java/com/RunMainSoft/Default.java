@@ -1,10 +1,12 @@
 package com.RunMainSoft;
 
+import com.util.GetAllIP;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.versiontext.Operator;
 
 import java.io.File;
+import java.net.UnknownHostException;
 
 class Default {
     private static final Logger logger = LogManager.getLogger(Default.class);
@@ -124,9 +126,24 @@ class Default {
                 case 3:
                     dd = MainS.gamed();
                     break;
+                case 4:
+
+
+                    dd = true;
+                    GetAllIP g = new GetAllIP();
+                    try {
+                        g.Start();
+                        System.out.println(g.toString());
+
+
+                    } catch (UnknownHostException e) {
+                        logger.error(e);
+                    }
+                    break;
+
+
                 default:
                     MainS.error();
-
             }
 
         }

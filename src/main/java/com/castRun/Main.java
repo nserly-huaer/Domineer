@@ -93,9 +93,6 @@ public class Main {
         Main.cs = cs123;
         long endtime = System.currentTimeMillis();
         logger.info("结束时间:" + endtime);
-        long chartertime = endtime - begintime;
-        logger.info("毫秒值：" + chartertime);
-        Main.chartertime = chartertime;
         return true;
     }
 }

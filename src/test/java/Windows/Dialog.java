@@ -17,7 +17,6 @@ public class Dialog extends JDialog {
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
-
     public Dialog(JFrame j, String title, boolean modal) {
         super(j, title, modal);
         setBounds(300, 250, 713, 260);

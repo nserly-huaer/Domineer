@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.RunMainSoft.scan;
-import Log4j2Pro.Main;
+import com.util.Main;
 import com.RunMainSoft.MainS;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

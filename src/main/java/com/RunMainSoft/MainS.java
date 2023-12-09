@@ -176,7 +176,7 @@ public class MainS {
         }
 
 
-        Log4j2Pro.Main l = new Log4j2Pro.Main();
+        com.util.Main l = new com.util.Main();
         l.Wrin(e.getClass().getName() + ": " + e.getMessage(), sbException);
         if (isInputIntoConsole) {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
