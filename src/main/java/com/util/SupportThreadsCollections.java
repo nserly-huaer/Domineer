@@ -3,16 +3,14 @@ package com.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Collections<T> {
+/**
+ * 本类支持线程不同，数据也不一样
+ */
+public class SupportThreadsCollections<T> {
     private Map<Thread, T> map;
-    private final Thread t1;
     private int counts;
 
     private int times;
-
-    public Thread GetCrateThread() {
-        return t1;
-    }
 
     public void SetRuns(int counts) {
         this.counts = counts;
@@ -30,26 +28,24 @@ public class Collections<T> {
         return map.isEmpty();
     }
 
-    public Collections() {
+    public SupportThreadsCollections() {
         map = new HashMap<>();
-        t1 = Thread.currentThread();
     }
 
-    public Collections(T object) {
+    public SupportThreadsCollections(T object) {
         map = new HashMap<>();
-        t1 = Thread.currentThread();
-        map.put(t1, object);
+        map.put(Thread.currentThread(), object);
     }
 
     public void Add(T object) {
-        map.put(t1, object);
+        map.put(Thread.currentThread(), object);
     }
 
     public T Get() {
-        return map.get(t1);
+        return map.get(Thread.currentThread());
     }
 
-    public void Remove(T object) {
-        map.remove(object);
+    public void Remove() {
+        map.remove(Thread.currentThread());
     }
 }
