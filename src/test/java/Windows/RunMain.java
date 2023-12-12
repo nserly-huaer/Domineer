@@ -52,7 +52,8 @@ public class RunMain implements Formation {
     }
 
     public void Connect() {
-        cross.RunSoft(ServerIP, ServerPort);
+        cross c = new cross();
+        c.RunSoft(ServerIP, ServerPort);
     }
 
     @Override

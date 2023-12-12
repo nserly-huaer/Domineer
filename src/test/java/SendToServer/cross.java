@@ -25,6 +25,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
     public static String IP;
     public static int Port;
     public static Collections<Operating> c;
+    private Thread readThread;
 
     static {
         c = new Collections<>();
@@ -36,7 +37,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
         GetDelay.Close();
     }
 
-    public static void RunSoft(String IP, int port) {
+    public void RunSoft(String IP, int port) {
         cross.IP = IP;
         cross.Port = port;
         try {
@@ -46,7 +47,8 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             UserLogin(RunMain.UserName);
             GetDelay.UserLogin(RunMain.UserName);
             c.Add(new Operating("服务器连接成功~IP地址：" + IP));
-            Thread readThread = new Thread(new ReadThread(socket));
+            if (readThread != null) readThread.interrupt();
+            readThread = new Thread(new ReadThread(socket));
             readThread.start();
             // 创建 GetDelay 对象
             GetDelay getDelay = new GetDelay();
@@ -132,7 +134,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
         }
     }
 
-    public static void SendToServer(String message) {
+    public static synchronized void SendToServer(String message) {
         try {
             out = socket.getOutputStream();
             // 发送消息给服务器
