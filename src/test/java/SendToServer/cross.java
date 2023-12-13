@@ -24,17 +24,13 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
     private static OutputStream out;
     public static String IP;
     public static int Port;
-    public static Collections<Operating> c;
-    private Thread readThread;
-
-    static {
-        c = new Collections<>();
-        c.SetRuns(1);
-    }
+    public static Operating c;
+    private static Thread readThread;
 
     public static void Close() throws IOException {
         socket.close();
         GetDelay.Close();
+        readThread.interrupt();
     }
 
     public void RunSoft(String IP, int port) {
@@ -46,7 +42,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             logger.info("连接服务器成功！");
             UserLogin(RunMain.UserName);
             GetDelay.UserLogin(RunMain.UserName);
-            c.Add(new Operating("服务器连接成功~IP地址：" + IP));
+            c = (new Operating("服务器连接成功~IP地址：" + IP));
             if (readThread != null) readThread.interrupt();
             readThread = new Thread(new ReadThread(socket));
             readThread.start();
@@ -57,20 +53,20 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
         } catch (IOException e) {
             MainS.centel(e, true);
             logger.error("服务器已经关闭");
-            BlurredGlassDialog.Show(c.Get(), "can't connect the server,please try later!", "Error");
+            BlurredGlassDialog.Show(c, "can't connect the server,please try later!", "Error");
         }
     }
 
     public static void restart() {
         BlurredGlassDialog.dialog.dispose();
-        c.Get().dispose();
+        c.dispose();
 
     }
 
     public static void Write(String level, String message) throws IOException {
         String write = getFirst(level) + message;
         if (level.equalsIgnoreCase("error")) {
-            BlurredGlassDialog.Show(c.Get(), "can't connect the server,please try later!", "Error");
+            BlurredGlassDialog.Show(c, "can't connect the server,please try later!", "Error");
             Operating.ServerMessage(write);
         } else if (level.equalsIgnoreCase("warn")) {
             Operating.ServerMessage(write);
@@ -80,7 +76,10 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
 
     public static void ReadServerMessage(String message) throws IOException {
         int index = message.indexOf("log");
-        if (index >= 0) {
+        if (message.equals("exit")) {
+            BlurredGlassDialog.Show(c, "can't connect the server,please try later!", "Error");
+            Operating.ServerMessage("服务器已关闭");
+        } else if (index >= 0) {
             String[] cache1 = message.split(" ", 2);
             String[] cache2 = cache1[1].split("-", 2);
             //日志信息
@@ -115,9 +114,6 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             } else {
                 div2 = false;
             }
-        } else if (message.equals("exit")) {
-            BlurredGlassDialog.Show(c.Get(), "can't connect the server,please try later!", "Error");
-            Operating.ServerMessage("服务器已关闭");
         } else {
             Operating.ServerMessage(message);
             Write("INFO", message);
@@ -130,7 +126,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             out.write(("UserName " + Name).getBytes());
             out.flush();
         } catch (IOException e) {
-            BlurredGlassDialog.Show(c.Get(), "can't connect the server,please try later!", "Error");
+            BlurredGlassDialog.Show(c, "can't connect the server,please try later!", "Error");
         }
     }
 
@@ -158,7 +154,7 @@ public class cross {//如果退出代码小于2则为正常退出，否则为异
             try {
                 Write("Error", e.toString());
             } catch (IOException ex) {
-                BlurredGlassDialog.Show(c.Get(), "can't connect the server,please try later!", "Error");
+                BlurredGlassDialog.Show(c, "can't connect the server,please try later!", "Error");
             }
         }
 
@@ -223,7 +219,7 @@ class ReadThread implements Runnable {
             }
         } catch (IOException e) {
             MainS.centel(e, true);
-            BlurredGlassDialog.Show(cross.c.Get(), "can't connect the server,please try later!", "Error");
+            BlurredGlassDialog.Show(cross.c, "can't connect the server,please try later!", "Error");
         }
 
     }
@@ -245,7 +241,7 @@ class GetDelay extends Thread {
             out.write(("UserName-delay " + Name + "\n").getBytes());
             out.flush();
         } catch (IOException e) {
-            BlurredGlassDialog.Show(cross.c.Get(), "can't connect the server,please try later!", "Error");
+            BlurredGlassDialog.Show(cross.c, "can't connect the server,please try later!", "Error");
         }
     }
 
@@ -279,10 +275,8 @@ class GetDelay extends Thread {
                     long del = Long.parseLong(see[index - 1]);
                     long time = System.currentTimeMillis();
                     long charter = time - del;
-                    if (charter >= 500)
-                        Operating.delay(charter - 500 + "ms");
-                    else
-                        Operating.delay(charter + "ms");
+                    if (charter >= 500) Operating.delay(charter - 500 + "ms");
+                    else Operating.delay(charter + "ms");
                 } else if (message.equals("exit")) {
                     Operating.delay("null");
                     JOptionPane.showMessageDialog(null, "Server is Closed", "Error", JOptionPane.ERROR_MESSAGE);
@@ -290,7 +284,7 @@ class GetDelay extends Thread {
 
             }
         } catch (Exception e) {
-            BlurredGlassDialog.Show(cross.c.Get(), "can't connect the server,please try later!", "Error");
+            BlurredGlassDialog.Show(cross.c, "can't connect the server,please try later!", "Error");
         }
     }
 }

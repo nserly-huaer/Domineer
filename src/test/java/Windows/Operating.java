@@ -15,6 +15,7 @@ public class Operating extends JFrame {
     private static final JTextArea Logs;
     private static final JTextArea ServerMessage;
     private static final JLabel delay;
+    private static Button SendToServer;
 
     static {
         UserInput = new JTextField();
@@ -23,6 +24,24 @@ public class Operating extends JFrame {
         ServerMessage = new JTextArea();
         ServerMessage.setEditable(false);
         delay = new JLabel();
+
+
+        UserInput.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    String SendMessage = UserInput.getText();
+                    if (SendMessage.equals("clean")) {
+                        ServerMessage.setText("");
+                        Operating.ChangeUserInput("");
+                    } else {
+                        cross.SendToServer(SendMessage);
+                        Operating.ChangeUserInput("");
+                        ServerMessage(SendMessage);
+                    }
+                }
+            }
+        });
     }
 
 
@@ -50,8 +69,6 @@ public class Operating extends JFrame {
     }
 
     public Operating(String title) {
-
-
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         Container con = getContentPane();
         setTitle(title);
@@ -107,17 +124,29 @@ public class Operating extends JFrame {
         UserInput.setPreferredSize(new Dimension(825, 53));
         middleBottomPanel.add(UserInput, BorderLayout.CENTER);
 
-        Button SendToServer = new Button("send");
+        SendToServer = new Button("send");
         SendToServer.setPreferredSize(new Dimension(213, 53));
         middleBottomPanel.add(SendToServer, BorderLayout.EAST);
         con.add(middleBottomPanel);
-
+        SendToServer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String SendMessage = UserInput.getText();
+                if (SendMessage.equals("clean")) {
+                    ServerMessage.setText("");
+                    Operating.ChangeUserInput("");
+                } else {
+                    cross.SendToServer(SendMessage);
+                    Operating.ChangeUserInput("");
+                    ServerMessage(SendMessage);
+                }
+            }
+        });
 
         // 下面右边的面板
 //        JPanel bottomRightPanel = new JPanel();
 
 //        con.add(bottomRightPanel);
-
         clean.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,22 +154,7 @@ public class Operating extends JFrame {
                 Operating.ChangeUserInput("");
             }
         });
-        UserInput.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    String SendMessage = UserInput.getText();
-                    if (SendMessage.equals("clean")) {
-                        ServerMessage.setText("");
-                        Operating.ChangeUserInput("");
-                    } else {
-                        cross.SendToServer(SendMessage);
-                        Operating.ChangeUserInput("");
-                        ServerMessage(SendMessage);
-                    }
-                }
-            }
-        });
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -157,28 +171,12 @@ public class Operating extends JFrame {
             }
         });
 
-        SendToServer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String SendMessage = UserInput.getText();
-                if (SendMessage.equals("clean")) {
-                    ServerMessage.setText("");
-                    Operating.ChangeUserInput("");
-                } else {
-                    cross.SendToServer(SendMessage);
-                    Operating.ChangeUserInput("");
-                    ServerMessage(SendMessage);
-                }
-            }
-        });
-
         j.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cross.SendToServer("delay");
             }
         });
-
         setVisible(true);
 
     }
